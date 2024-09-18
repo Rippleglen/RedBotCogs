@@ -1,7 +1,6 @@
 import discord
 from redbot.core import commands
 from redbot.core.bot import Red
-from discord import app_commands
 
 class RemoveNonVerified(commands.Cog):
     def __init__(self, bot: Red):
@@ -62,12 +61,6 @@ class RemoveNonVerified(commands.Cog):
 
         await ctx.send(f"Removed 'unverified' role from {count} member(s).")
 
-    async def cog_load(self):
-        # Ensure slash commands are synced
-        guild_id = discord.Object(id=738425258104848457)  # Replace with your server's ID
-        self.bot.tree.add_command(self.remove_non_verified, guild=guild_id)
-
-    async def cog_unload(self):
-        # Clean up slash command
-        guild_id = discord.Object(id=738425258104848457)  # Replace with your server's ID
-        self.bot.tree.remove_command(self.remove_non_verified.name, guild=guild_id)
+# Setup function for RedBot to load the cog
+async def setup(bot: Red):
+    await bot.add_cog(RemoveNonVerified(bot))
