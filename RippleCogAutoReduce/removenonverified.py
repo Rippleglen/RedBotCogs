@@ -14,7 +14,7 @@ class RemoveNonVerified(commands.Cog):
         }
         # Unverified role ID
         self.unverified_role_id = 1062206841716744262
-        # Log channel ID (replace with your actual log channel ID)
+        # Log channel ID
         self.log_channel_id = 1062195647056466021  # Replace with your log channel ID
 
     @commands.Cog.listener()
@@ -27,15 +27,14 @@ class RemoveNonVerified(commands.Cog):
         if unverified_role is None:
             return  # Unverified role doesn't exist, stop.
 
-        # Check if the user had the unverified role before and now has an age bracket role
+        # Check if the user still has the unverified role and has gained an age bracket role
         if unverified_role in after.roles:
             new_roles = [role for role in after.roles if role.id in self.age_bracket_roles]
             if new_roles:
                 age_bracket = self.age_bracket_roles[new_roles[0].id]
                 try:
-                    # Remove unverified role
+                    # Remove the unverified role
                     await after.remove_roles(unverified_role)
-                    await after.send("Thanks for verifying and keeping The Ashen Grave safe!")
                     
                     # Log the verification in the log channel
                     if log_channel is not None:
@@ -43,10 +42,17 @@ class RemoveNonVerified(commands.Cog):
                             f"**{after.display_name}** has verified and is under the **{age_bracket}** age bracket. "
                             f"The 'unverified' role has been removed."
                         )
+                    
+                    # Avoid sending a DM if the role has been successfully removed
                 except discord.Forbidden:
+                    # Send a DM only if the bot doesn't have permission
                     await after.send("I do not have permission to remove your 'unverified' role.")
                 except discord.HTTPException:
+                    # Handle an HTTP error
                     await after.send("There was an error while removing your 'unverified' role, please contact Ripple.")
+        else:
+            # If the unverified role has already been removed, do nothing
+            return
 
     @commands.hybrid_command(name="removenonverified", with_app_command=True)
     @commands.guild_only()
