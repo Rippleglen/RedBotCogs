@@ -15,7 +15,7 @@ class RemoveNonVerified(commands.Cog):
         # Unverified role ID
         self.unverified_role_id = 1062206841716744262
         # Log channel ID (replace with your actual log channel ID)
-        self.log_channel_id = 123456789012345678  # Replace with your log channel ID
+        self.log_channel_id = 1062195647056466021  # Replace with your log channel ID
 
     @commands.Cog.listener()
     async def on_member_update(self, before: discord.Member, after: discord.Member):
