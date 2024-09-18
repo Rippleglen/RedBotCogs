@@ -1,0 +1,10 @@
+{
+    "author": ["RippleTTV"],
+    "description": "A cog that removes the 'unverified' role from all users who have it when the !removenonverified command is used.",
+    "install_msg": "Thank you for installing the RemoveNonVerified cog. Use the !removenonverified command to remove the 'unverified' role from all users who currently have it.",
+    "short": "Remove 'unverified' role from all users who have it.",
+    "requirements": [],
+    "tags": ["roles", "moderation", "admin"],
+    "type": "COG",
+    "end_user_data_statement": "This cog does not store or share any personal data."
+}
